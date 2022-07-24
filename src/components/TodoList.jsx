@@ -7,20 +7,29 @@ export function TodoList() {
   /* Definir una lista con tareas */
   const [todos, setTodos] = useState([]);
 
+    /* ref del nombre de la tarea */
+  const taskRefNom = useRef();
   const taskRef = useRef();
+
+
 
   const agregarTarea = () => {
     /* Rescatar el valor del input */
+    const taskN = taskRefNom.current.value;
     const task = taskRef.current.value;
+    
 
     console.log(task);
 
+    if (taskN.trim() === "") return;
     if (task.trim() === "") return;
+    
     console.log("Agregando tarea ...");
     /* Metodo definido por react para operar los elementos */
     setTodos((prevTodos) => {
       const newTask = {
         id: uuid(),
+        taskN: taskN,
         task: task,
         completed: false,
       };
@@ -28,6 +37,7 @@ export function TodoList() {
       return [...prevTodos, newTask];
     });
     taskRef.current.value = null;
+    taskRefNom.current.value = null;
   };
 
   const ResumenTareas = () => {
@@ -36,7 +46,7 @@ export function TodoList() {
     if (cant === 0) {
       return (
         <div className="alert alert-success mt-3">
-          Felicidades no tienes tareas pendientes :)
+          Felicidades no tienes tareas pendientes
         </div>
       );
     }
@@ -82,12 +92,23 @@ export function TodoList() {
       <h1>Listado de Tareas</h1>
 
       <div className="input-group">
+
+      {/* nombre de la tarea */}
+      <input
+          type="text"
+          ref={taskRefNom}
+          className="form-control"
+          placeholder="Nombre de la tarea"
+        />
+      {/* descripción de la tarea */}
         <input
           type="text"
           ref={taskRef}
           className="form-control"
-          placeholder="Ingrese una tarea"
+          placeholder="Descripción de la tarea"
         />
+        {/* boton importante */}
+        {/* <input type="checkbox" className="checkmark">Importante</input> */}
         {/* Boton agregar */}
         <button className="btn btn-outline-success ms-2" onClick={agregarTarea}>
         <i class="bi bi-plus-square-fill"></i>

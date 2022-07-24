@@ -1,17 +1,34 @@
 import React from "react";
 
 /* debo recibir los props */
+
+
 export function TodoItem({ todo, cambiarEstado }) {
-  const { id, task, completed } = todo;
+  const { id,taskN, task, completed } = todo;
   const fnCambiarEstado = () => {
     cambiarEstado(id)
   }
   return (
-    <li className="list-group-item">
-      <input type="checkbox" 
-      onChange={fnCambiarEstado}
-      className="form-check-input me-2" checked={completed}/>
-      {task}
-    </li>
+
+    <div className="container">
+      <div className="row">
+        <div className="col">
+          <ul>
+            <li>
+              <a href="">
+                <input type="checkbox" onChange={fnCambiarEstado}
+                className="form-check-input me-2" checked={completed}/>
+                  <h2>
+                    {taskN}
+                  </h2>
+                  <p>
+                    {task}
+                  </p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   );
-}
+};
