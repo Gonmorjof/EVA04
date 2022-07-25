@@ -10,6 +10,7 @@ export function TodoList() {
     /* ref del nombre de la tarea */
   const taskRefNom = useRef();
   const taskRef = useRef();
+  const taskRefImp = useRef();
 
 
 
@@ -38,6 +39,7 @@ export function TodoList() {
     });
     taskRef.current.value = null;
     taskRefNom.current.value = null;
+    taskRefImp.current.checked = false;
   };
 
   const ResumenTareas = () => {
@@ -93,30 +95,31 @@ export function TodoList() {
 
       <div className="input-group">
 
-      {/* nombre de la tarea */}
-      <input
-          type="text"
-          ref={taskRefNom}
-          className="form-control"
-          placeholder="Nombre de la tarea"
-        />
-      {/* descripción de la tarea */}
+        {/* nombre de la tarea */}
         <input
-          type="text"
-          ref={taskRef}
-          className="form-control"
-          placeholder="Descripción de la tarea"
+            type="text"
+            ref={taskRefNom}
+            className="form-control m-1"
+            placeholder="Nombre de la tarea"
         />
-        {/* boton importante */}
-        {/* <input type="checkbox" className="checkmark">Importante</input> */}
-        {/* Boton agregar */}
-        <button className="btn btn-outline-success ms-2" onClick={agregarTarea}>
-        <i class="bi bi-plus-square-fill"></i>
+          {/* descripción de la tarea */}
+        <input
+            type="text"
+            ref={taskRef}
+            className="form-control m-1"
+            placeholder="Descripción de la tarea"
+        />
+        {/* chek importante */}
+        <input className="form-check-input m-3" type="checkbox" value="" id="checkImpor" /* onClick={importante} */ref={taskRefImp} />Importante!!
+
+          {/* Boton agregar */}
+        <button className="btn btn-outline-dark ms-3" onClick={agregarTarea}>
+          <i class="bi bi-plus-square-fill m-2"></i>Añadir
         </button>
-        {/* Botón eliminar */}
-        <button className="btn btn-outline-danger ms-2" onClick={eliminarTareasCompletas}>
-          <i class="bi bi-trash-fill"></i>
-        </button>
+          {/* Botón eliminar */}
+        {/* <button className="btn btn-outline-danger ms-3" onClick={eliminarTareasCompletas}>
+            <i class="bi bi-trash-fill"></i>
+        </button> */}
       </div>
 
       {/* Cargar lista con tareas */}

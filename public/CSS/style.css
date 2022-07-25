@@ -10,7 +10,9 @@
 }
 
 body {
-    background-color: var(--colorBackGround);
+    /* background-color: var(--colorBackGround); */
+    background: rgb(34,193,195);
+    background: linear-gradient(90deg, rgba(34,193,195,1) 23%, rgba(253,247,45,1) 120%); 
 }
 
 .btn-agregar {
@@ -134,6 +136,10 @@ ul li a:focus {
     z-index: 5;
 }
 
+ul li button{
+    background-color:var(--colorNormal);
+    border-width: 0px;
+}
 
 /* Centrar elementos en pantalla */
 

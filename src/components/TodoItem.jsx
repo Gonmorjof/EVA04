@@ -12,12 +12,15 @@ export function TodoItem({ todo, cambiarEstado }) {
 
     <div className="container">
       <div className="row">
-        <div className="col">
+        <div className="col justify-content-end">
           <ul>
             <li>
+            
               <a href="">
-                <input type="checkbox" onChange={fnCambiarEstado}
-                className="form-check-input me-2" checked={completed}/>
+              
+                {/* <input type="checkbox" onChange={fnCambiarEstado}
+                className="form-check-input me-2" checked={completed}/> */}
+                <button><i className="bi bi-pin-angle-fill"></i></button>
                   <h2>
                     {taskN}
                   </h2>
