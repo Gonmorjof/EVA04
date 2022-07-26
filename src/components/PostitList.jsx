@@ -1,25 +1,24 @@
 import React, { Fragment, useState, useRef } from "react";
 import { v4 as uuid } from "uuid";
-/* Importar todoitem */
-import { TodoItem } from "./TodoItem";
+/* Importar postititem */
+import { PostitItem } from "./PostitItem";
 
-export function TodoList() {
+import { PostitItemImportante } from "./PostitItem";
+
+export function PostitList() {
   /* Definir una lista con tareas */
-  const [todos, setTodos] = useState([]);
+  const [postits, setPostits] = useState([]);
 
     /* ref del nombre de la tarea */
   const taskRefNom = useRef();
   const taskRef = useRef();
   const taskRefImp = useRef();
 
-
-
   const agregarTarea = () => {
     /* Rescatar el valor del input */
     const taskN = taskRefNom.current.value;
     const task = taskRef.current.value;
     
-
     console.log(task);
 
     if (taskN.trim() === "") return;
@@ -27,71 +26,50 @@ export function TodoList() {
     
     console.log("Agregando tarea ...");
     /* Metodo definido por react para operar los elementos */
-    setTodos((prevTodos) => {
+    setPostits((prevPostits) => {
       const newTask = {
         id: uuid(),
         taskN: taskN,
         task: task,
+        taskRefImp: taskRefImp,
         completed: false,
       };
 
-      return [...prevTodos, newTask];
+      return [...prevPostits, newTask];
     });
     taskRef.current.value = null;
     taskRefNom.current.value = null;
     taskRefImp.current.checked = false;
   };
 
-  const ResumenTareas = () => {
-    const cant = cantidadTareas();
-
-    if (cant === 0) {
-      return (
-        <div className="alert alert-success mt-3">
-          Felicidades no tienes tareas pendientes
-        </div>
-      );
-    }
-
-    if (cant === 1) {
-      return (
-        <div className="alert alert-info mt-3">
-          Te queda solamente una tarea pendiente
-        </div>
-      );
-    }
-
-    return (
-      <div className="alert alert-info mt-3">
-        Te quedan {cant} tareas pendientes
-      </div>
-    );
-  };
-
   const cantidadTareas = () => {
     /* Filter */
-    return todos.filter((todo) => !todo.completed).length;
+    return postits.filter((postit) => !postit.completed).length;
   };
 
   const cambiarEstadoTarea = (id) => {
     console.log(id);
     /* Tomar todos los datos de la lista actual de tareas*/
-    const newTodos = [...todos];
+    const newPostits = [...postits];
     /* buscar en la lista ese id */
-    const todo = newTodos.find((todo) => todo.id === id);
+    const postit = newPostits.find((postit) => postit.id === id);
     /* Cambiamos al estado contrario */
-    todo.completed = !todo.completed;
-    setTodos(newTodos);
+    postit.completed = !postit.completed;
+    setPostits(newPostits);
   };
   const eliminarTareasCompletas = () => {
     /* Filtras todas las tareas que aun no se hacen */
-    const newTodos = todos.filter((todo) => !todo.completed);
-    setTodos(newTodos);
+    const newPostits = postits.filter((postit) => !postit.completed);
+    setPostits(newPostits);
   };
 
   return (
-    <Fragment>
-      <h1>Listado de Tareas</h1>
+    <div className="container">
+      <div className="row">
+        <div className="col">
+        <Fragment>
+      <h1>Tareas pendientes</h1>
+      <br />
 
       <div className="input-group">
 
@@ -110,7 +88,7 @@ export function TodoList() {
             placeholder="Descripción de la tarea"
         />
         {/* chek importante */}
-        <input className="form-check-input m-3" type="checkbox" value="" id="checkImpor" /* onClick={importante} */ref={taskRefImp} />Importante!!
+        <input className="form-check-input m-3" type="checkbox" value="" id="importante" /* onClick={importante} */ref={taskRefImp} />Importante!!
 
           {/* Boton agregar */}
         <button className="btn btn-outline-dark ms-3" onClick={agregarTarea}>
@@ -122,22 +100,34 @@ export function TodoList() {
         </button> */}
       </div>
 
+
+
+
+
       {/* Cargar lista con tareas */}
       <div>
         <ul className="list-group my-4">
           {/* Método avanzado de js */}
           {/* map es como un foreach */}
-          {todos.map((todo) => (
-            <TodoItem
-              todo={todo}
-              key={todo.id}
+          {postits.map((postit) => (
+            <PostitItem
+            postit={postit}
+              key={postit.id}
               cambiarEstado={cambiarEstadoTarea}
-            ></TodoItem>
+            ></PostitItem>
           ))}
         </ul>
       </div>
 
-      <ResumenTareas />
+
+
+
+
+
+      {/* <ResumenTareas /> */}
     </Fragment>
+        </div>
+      </div>
+    </div>
   );
 }

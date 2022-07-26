@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
-import {TodoList} from './components/TodoList'
+import {PostitList} from './components/PostitList'
 /* Añadir un componente */
 export function App(){
     return (
         <Fragment>
-            <TodoList />
+            <PostitList />
         </Fragment>
     );
 };
