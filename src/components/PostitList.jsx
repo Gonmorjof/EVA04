@@ -5,6 +5,16 @@ import { PostitItem } from "./PostitItem";
 
 import { PostitItemImportante } from "./PostitItem";
 
+export function EliminarPostit(){
+  const [postits, setPostits, postit] = useState([]);
+  const eliminarTarea = () => {
+    /* Filtras todas las tareas que aun no se hacen */
+    const newPostits = postits.filter((postit) => !postit.completed);
+    setPostits(newPostits);
+  };
+};
+
+
 export function PostitList() {
   /* Definir una lista con tareas */
   const [postits, setPostits] = useState([]);
@@ -20,7 +30,7 @@ export function PostitList() {
     const task = taskRef.current.value;
     
     console.log(task);
-
+    
     if (taskN.trim() === "") return;
     if (task.trim() === "") return;
     
@@ -57,12 +67,13 @@ export function PostitList() {
     postit.completed = !postit.completed;
     setPostits(newPostits);
   };
-  const eliminarTareasCompletas = () => {
-    /* Filtras todas las tareas que aun no se hacen */
+
+  const eliminarTarea = () => {
     const newPostits = postits.filter((postit) => !postit.completed);
     setPostits(newPostits);
   };
 
+  
   return (
     <div className="container">
       <div className="row">
@@ -95,18 +106,14 @@ export function PostitList() {
           <i class="bi bi-plus-square-fill m-2"></i>Añadir
         </button>
           {/* Botón eliminar */}
-        {/* <button className="btn btn-outline-danger ms-3" onClick={eliminarTareasCompletas}>
+        {/* <button className="btn btn-outline-danger ms-3" onClick={eliminarTarea}>
             <i class="bi bi-trash-fill"></i>
-        </button> */}
+        </button>  */}
       </div>
-
-
-
-
 
       {/* Cargar lista con tareas */}
       <div>
-        <ul className="list-group my-4">
+        <ul>
           {/* Método avanzado de js */}
           {/* map es como un foreach */}
           {postits.map((postit) => (
